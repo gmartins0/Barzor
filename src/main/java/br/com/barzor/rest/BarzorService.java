@@ -11,17 +11,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import br.com.barzor.dao.BarzorData;
-import br.com.barzor.model.Restaurante;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import br.com.barzor.model.Restaurante;
+import br.com.barzor.transaction.RestauranteTransaction;
+
+@Component
 @Path("/barzor/restaurante")
 public class BarzorService {
+	
+	@Autowired
+	private RestauranteTransaction transaction;
 		
 	@GET
 	@Path("/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurante getRestauranteById(@PathParam("id") String id){		
-		return BarzorData.dataById.get(id);
+		return transaction.getById(id);
 	}
 	
 	@GET
@@ -29,14 +36,14 @@ public class BarzorService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurante getRestauranteByName(@PathParam("name") String name){
 		
-		return BarzorData.dataByName.get(name);
+		return transaction.getByName(name);
 	}
 	
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Restaurante> listRestaurantes(){
-		return BarzorData.dataById.values();
+		return transaction.list();
 	}
 	
 	@POST
@@ -44,8 +51,7 @@ public class BarzorService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response save(Restaurante restaurante) {
 		
-		BarzorData.dataById.put(restaurante.getId(), restaurante);
-		BarzorData.dataByName.put(restaurante.getNome(), restaurante);
+		transaction.save(restaurante);
 
 		String result = "Restaurante salvo : " + restaurante.getNome();
 		return Response.status(201).entity(result).build();
