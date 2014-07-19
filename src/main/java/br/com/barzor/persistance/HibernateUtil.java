@@ -3,16 +3,22 @@ package br.com.barzor.persistance;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 	
 	private static final SessionFactory sessionFactory = buildSessionFactory();
 	 
-    private static SessionFactory buildSessionFactory() {
+    @SuppressWarnings("deprecation")
+	private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-        	return new AnnotationConfiguration().buildSessionFactory(new StandardServiceRegistryBuilder().build());
-//            return new Configuration().configure().buildSessionFactory();
+        	AnnotationConfiguration configuration = new AnnotationConfiguration();
+        	configuration.configure("hibernate.cfg.xml");
+        	
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            
+        	return configuration.buildSessionFactory(serviceRegistry);
  
         }
         catch (Throwable ex) {

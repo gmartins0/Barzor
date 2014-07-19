@@ -1,12 +1,14 @@
 package br.com.barzor.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="restaurante")
 public class Restaurante {
 	
+	@Id
 	private String id;
 	public String getId() {
 		return id;

@@ -16,8 +16,8 @@ public class RestauranteTransactionImpl implements RestauranteTransaction{
 
 	@Override
 	public Restaurante getById(String id) {
-		Restaurante rest = new BarzorData().get("");
-		return BarzorData.dataById.get(id);
+		Restaurante rest = new BarzorData().get("00000000000000000000000000000001");
+		return rest;
 	}
 
 	@Override
