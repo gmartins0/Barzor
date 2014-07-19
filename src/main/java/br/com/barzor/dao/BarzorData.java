@@ -3,7 +3,11 @@ package br.com.barzor.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import br.com.barzor.model.Restaurante;
+import br.com.barzor.persistance.HibernateUtil;
 
 public class BarzorData {
 	
@@ -35,6 +39,13 @@ public class BarzorData {
 		
 		dataByNome.put(r.getNome(),r);
 		dataById.put(r.getId(), r);
+	}
+	
+	public Restaurante get(String id){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		return (Restaurante)session.byId(Restaurante.class).load("00000000000000000000000000000001");
 	}
 
 }

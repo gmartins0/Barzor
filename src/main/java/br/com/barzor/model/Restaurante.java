@@ -1,5 +1,10 @@
 package br.com.barzor.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="restaurante")
 public class Restaurante {
 	
 	private String id;
