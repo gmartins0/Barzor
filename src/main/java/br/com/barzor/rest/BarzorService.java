@@ -1,6 +1,7 @@
 package br.com.barzor.rest;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -27,7 +28,7 @@ public class BarzorService {
 	@GET
 	@Path("/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Restaurante getRestauranteById(@PathParam("id") String id){		
+	public Restaurante getRestauranteById(@PathParam("id") UUID id){		
 		return transaction.getById(id);
 	}
 	

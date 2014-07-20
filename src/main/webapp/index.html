@@ -12,10 +12,11 @@
 		  type: "POST",
           contentType: "application/json; charset=utf-8",
           url: "rest/barzor/restaurante/post",
-          data: JSON.stringify( {"nome":"Orc's Dungeon","id":"7"} ),
+          data: JSON.stringify( {"nome":$("#nome").val(),"id":""} ),
           dataType: "text",
           success: function(data, textStatus, xhr) {
               $("#response").text(data);
+              $("#nome").val("");
           }
 		});
 	  
@@ -27,6 +28,7 @@
 
 	<div id="content">
 		<p>Testando o envio de dados para o form:</p>
+		Nome: <input type="text" id="nome"/><br/>
 		<a href="javascript:postData()">Enviar</a><br/>
 		<span id="response"></span>
 	</div>
